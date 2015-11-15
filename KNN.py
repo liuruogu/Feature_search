@@ -21,8 +21,8 @@ def feature_search(data):
     for i in range(feature-1):
         print ("On the ", i+1 , "level of the search tree" )
     #
-    # print (len(data, 2))
-    # for i in size(data, 2)
+    print (len(data, 2))
+    for i in size(data, 2)
 
 loo = LeaveOneOut(4)
 
