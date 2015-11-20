@@ -11,16 +11,32 @@ def dimension(data):
 
 # Leave_one_out_cross_validation
 def leave_one_out_cross_validation(data, current_set_of_feature, feature_to_add):
-    # accuracy = 1
-    # current_set_of_feature = [1,2,3]
+    N_neighbor = 1
+    N_distance = 100
     distance = 0
     value_num, none = dimension(data)
     print(value_num, none)
-    for x in range(value_num):
-        print(x)
-        for i in current_set_of_feature :
-            print(data[x][i])
-            distance += pow(data[x][i]-data[x+1][i],2)
+    for x in range(value_num):# x is the only test set
+        print(x, "test set")
+        i = x
+        for j in range(value_num): #predict in training set
+            if j!=i:
+                print(j,"predict set")
+                for k in current_set_of_feature:
+                    # print(x,k,j,k)
+                    # print(data[x][k], data[j][k])
+                    distance += pow((data[x][k]- data[j][k]),2) # calculate the euclidean distance
+                    # print(distance)
+                if distance < N_distance:
+                    N_distance = distance
+                    N_neighbor = k
+                    # print(N_neighbor, N_distance)
+                # print(N_neighbor, N_distance)
+                distance = 0
+
+        # print(x)
+
+        # for i in current_set_of_feature :
 
     # print(x)
     # print(current_set_of_feature, feature_to_add)
