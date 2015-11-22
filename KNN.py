@@ -1,10 +1,7 @@
 __author__ = 'liu'
 import numpy as np
 import math
-from sklearn.cross_validation import LeaveOneOut
-import matplotlib.pyplot as pit
 
-#return the size of the data
 def dimension(data):
     row, col = data.shape
     return row, col
@@ -21,7 +18,6 @@ def leave_one_out_cross_validation(data, current_set_of_feature):
         i = x
         for j in range(value_num): #predict in training set
             if j!=i:
-                # print(j,"trainning set")
                 for k in current_set_of_feature:
                     # print(x,k,j,k)
                     # print(data[x][k], data[j][k])
@@ -29,7 +25,7 @@ def leave_one_out_cross_validation(data, current_set_of_feature):
                     # print("Distance: ", distance)
                 if distance < N_distance :
                     N_distance = distance
-                    N_neighbor = j #循环下标+1才是第N个最近邻
+                    N_neighbor = j # 循环下标+1才是第N个最近邻
                     # print("nearest neighbor", N_neighbor, N_distance)
                     # print("Class of the N_neighbor", data[j][0], data[x][0])
                 distance = 0
@@ -65,7 +61,7 @@ def feature_search(data):
         second_feature = current_set_of_feature
         feature_add = []
         for k in range(feature-1):
-            if not any([item in [k+1] for item in current_set_of_feature]):
+            if not any([item in [k+1] for item in current_set_of_feature]): #consider features not added yet
                 print("Considering add", k+1, "feature")
                 feature_to_add_at_this_level = [k+1]
                 second_feature.extend(feature_to_add_at_this_level)
@@ -82,10 +78,14 @@ def feature_search(data):
             print("We add feature", feature_add, "at this search level")
             print("At the set", current_set_of_feature, "we have the highest accuracy", best_so_far_accuracy,"%")
             print()
-        if best_so_far_accuracy > highest_accuracy:
-            highest_accuracy = best_so_far_accuracy
+        if highest_accuracy < best_so_far_accuracy:
+            print("!!!!At the highest_set", highest_accuracy_feature, "we have the highest accuracy", highest_accuracy,"Got beat up!!")
             highest_accuracy_feature = current_set_of_feature
-        print("Finished search! The best feature subset is", highest_accuracy_feature,"which has an accuracy of", highest_accuracy,"%")
+            print("!!!!I got the highest accuracy features as follow",highest_accuracy_feature)
+            highest_accuracy = best_so_far_accuracy
+
+    print("Finished search! The best feature subset is", highest_accuracy_feature, "which has an accuracy of", highest_accuracy,"%")
+
 def main():
 
     data = np.genfromtxt('small.txt', delimiter='')
