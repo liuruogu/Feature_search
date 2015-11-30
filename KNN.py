@@ -44,6 +44,7 @@ def feature_search(data):
     feature_to_add_at_this_level = []
     highest_accuracy = 0
     highest_accuracy_feature = []
+    second_feature = []
     for i in range(feature-1):
         current_set_of_feature = [i+1]
         accuracy = leave_one_out_cross_validation(data, current_set_of_feature)
@@ -52,8 +53,6 @@ def feature_search(data):
                 feature_to_add_at_this_level=i+1
         current_set_of_feature = [feature_to_add_at_this_level]
         print("Using", feature_to_add_at_this_level, "get the highest accuracy is", best_so_far_accuracy, "%")
-        highest_accuracy = best_so_far_accuracy
-        highest_accuracy_feature = feature_to_add_at_this_level
 
     for i in range(feature-1):
         feature_to_add_at_this_level = []
@@ -81,10 +80,11 @@ def feature_search(data):
         if highest_accuracy < best_so_far_accuracy:
             print("!!!!At the highest_set", highest_accuracy_feature, "we have the highest accuracy", highest_accuracy,"Got beat up!!")
             highest_accuracy_feature = current_set_of_feature
-            print("!!!!I got the highest accuracy features as follow",highest_accuracy_feature)
+            print("!!!!I got the highest accuracy features as follow", highest_accuracy_feature)
+            print("-----Hight accurcy feature set is", highest_accuracy_feature)
             highest_accuracy = best_so_far_accuracy
 
-    print("Finished search! The best feature subset is", highest_accuracy_feature, "which has an accuracy of", highest_accuracy,"%")
+    print("Finished search! The best feature subset is", highest_accuracy_feature, "which has an accuracy of", highest_accuracy ,"%")
 
 def main():
 
