@@ -86,6 +86,13 @@ def feature_search(data):
 
     print("Finished search! The best feature subset is", highest_accuracy_feature, "which has an accuracy of", highest_accuracy ,"%")
 
+# Backward eliminiation
+def Backward_search():
+    return 0
+
+def Faster_search():
+    return 0
+
 def main():
 
     data = np.genfromtxt('small.txt', delimiter='')
