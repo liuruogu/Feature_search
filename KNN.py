@@ -1,5 +1,6 @@
 __author__ = 'liu'
 import numpy as np
+import copy
 import math
 
 def dimension(data):
@@ -79,7 +80,7 @@ def feature_search(data):
             print()
         if highest_accuracy < best_so_far_accuracy:
             print("!!!!At the highest_set", highest_accuracy_feature, "we have the highest accuracy", highest_accuracy,"Got beat up!!")
-            highest_accuracy_feature = current_set_of_feature
+            highest_accuracy_feature = copy.copy(current_set_of_feature)
             print("!!!!I got the highest accuracy features as follow", highest_accuracy_feature)
             print("-----Hight accurcy feature set is", highest_accuracy_feature)
             highest_accuracy = best_so_far_accuracy
@@ -88,6 +89,7 @@ def feature_search(data):
 
 # Backward eliminiation
 def Backward_search():
+
     return 0
 
 def Faster_search():
