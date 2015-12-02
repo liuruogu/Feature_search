@@ -88,8 +88,14 @@ def feature_search(data):
     print("Finished search! The best feature subset is", highest_accuracy_feature, "which has an accuracy of", highest_accuracy ,"%")
 
 # Backward eliminiation
-def Backward_search():
-
+def Backward_search(data):
+    '''Get the feature number of the date set'''
+    none, feature = dimension(data)
+    current_set_of_feature = []
+    best_so_far_accuracy = 0
+    feature_to_eliminate_at_this_level = []
+    highest_accuracy = 0
+    highest_accuracy_feature = []
     return 0
 
 def Faster_search():
