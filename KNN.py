@@ -98,7 +98,8 @@ def Backward_search(data):
     highest_accuracy_feature = []
     return 0
 
-def Faster_search():
+def Faster_search_ideal():
+    '''KNN are sensitive to irrelevant feature, try to use less irrelevant feature'''
     return 0
 
 def main():
