@@ -17,7 +17,7 @@ def leave_one_out_cross_validation(data, current_set_of_feature):
     for x in range(value_num):# x is the only test set
         i = x
         for j in range(value_num): #predict in training set
-            if j!=i:
+            if j != i:
                 for k in current_set_of_feature:
                     # print(x,k,j,k)
                     # print(data[x][k], data[j][k])
@@ -29,8 +29,8 @@ def leave_one_out_cross_validation(data, current_set_of_feature):
                     # print("nearest neighbor", N_neighbor, N_distance)
                     # print("Class of the N_neighbor", data[j][0], data[x][0])
                 distance = 0
-        if data[N_neighbor][0]==data[x][0]:
-            count+=1
+        if data[N_neighbor][0] == data[x][0]:
+            count += 1
             # print("预测准确数", (count/value_num)*100,"%")
         N_distance = 1000
     return (count/value_num)*100
@@ -107,33 +107,61 @@ def Backward_search(data):
         intermedia_set = copy.copy(current_set_of_feature)
         for each in intermedia_set:
             intermedia_set.remove(each)
-            print("The current set", intermedia_set)
+            print("Using features", intermedia_set)
             accuracy = leave_one_out_cross_validation(data, intermedia_set)
             if accuracy > best_so_far_accuracy:
                 best_so_far_accuracy = accuracy
                 print("set", intermedia_set, "have highest accuracy", best_so_far_accuracy)
-                print("The highest eliminated set is", highest_eliminated_set)
                 highest_eliminated_set = copy.copy(intermedia_set)
+                print("The highest eliminated set is", highest_eliminated_set)
             intermedia_set = copy.copy(current_set_of_feature)
+        if best_so_far_accuracy > highest_accuracy:
+            highest_accuracy = best_so_far_accuracy
+            highest_accuracy_feature = copy.copy(highest_eliminated_set)
         best_so_far_accuracy = 0
         print("--------The highest eliminated set is", highest_eliminated_set)
         current_set_of_feature = copy.copy(highest_eliminated_set)
-    # data = leave_one_out_cross_validation(data, current_set_of_feature)
-    # print("The current set", current_set_of_feature)
-    # current_set_of_feature.remove(9)
-    # print("The current set is", current_set_of_feature)
+
+    print("We found the best test sets so far is", highest_accuracy_feature, "Have highest accuracy", highest_accuracy,"%")
 
     return 0
 
-def Faster_search_ideal():
+def Faster_search_algorithm(data):
     '''KNN are sensitive to irrelevant feature, try to use less irrelevant feature'''
+    none, feature = dimension(data)
+    current_set_of_feature = []
+    best_so_far_accuracy = 0
+    highest_accuracy = []
+    highest_accuracy_feature = []
+
+    '''Searching algorithm'''
+
+    '''Get the highest accuracy by searching algorithm'''
+
+    '''However, the searching algorithm needs a lot of time and resource'''
+    current_set_of_feature_2 = []
+    for each in range(1, 4):
+        print(each)
+        current_set_of_feature.append(each)
+
+    for each in range(6, 9):
+        print(each)
+        current_set_of_feature_2.append(each)
+
+    print(current_set_of_feature)
+    print(current_set_of_feature_2)
+    a = leave_one_out_cross_validation(data, current_set_of_feature)
+    b = leave_one_out_cross_validation(data, current_set_of_feature_2)
+    print(a, b)
+
     return 0
 
 def main():
-
+    '''Get the feature number of the date set'''
     data = np.genfromtxt('small.txt', delimiter='')
     # feature_search(data)
-    Backward_search(data)
+    # Backward_search(data)
+    Faster_search_algorithm(data)
 
 if __name__ == "__main__":
     main()
