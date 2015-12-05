@@ -15,7 +15,6 @@ def leave_one_out_cross_validation(data, current_set_of_feature):
     value_num, none = dimension(data)
     count = 0
     for x in range(value_num):# x is the only test set
-        # print(x, "test set")
         i = x
         for j in range(value_num): #predict in training set
             if j!=i:
@@ -62,7 +61,7 @@ def feature_search(data):
         feature_add = []
         for k in range(feature-1):
             if not any([item in [k+1] for item in current_set_of_feature]): #consider features not added yet
-                print("Considering add", k+1, "feature")
+                print("Considering add the", k+1, "feature")
                 feature_to_add_at_this_level = [k+1]
                 second_feature.extend(feature_to_add_at_this_level)
                 accuracy = leave_one_out_cross_validation(data, second_feature)
@@ -93,9 +92,37 @@ def Backward_search(data):
     none, feature = dimension(data)
     current_set_of_feature = []
     best_so_far_accuracy = 0
-    feature_to_eliminate_at_this_level = []
+    highest_eliminated_set = []
     highest_accuracy = 0
     highest_accuracy_feature = []
+
+    '''initialize the feature set'''
+    for each in range(1, feature):
+        print(each)
+        current_set_of_feature.append(each)
+
+    '''eliminate feature-1 times of features'''
+    for each in range(1, feature-1):
+
+        intermedia_set = copy.copy(current_set_of_feature)
+        for each in intermedia_set:
+            intermedia_set.remove(each)
+            print("The current set", intermedia_set)
+            accuracy = leave_one_out_cross_validation(data, intermedia_set)
+            if accuracy > best_so_far_accuracy:
+                best_so_far_accuracy = accuracy
+                print("set", intermedia_set, "have highest accuracy", best_so_far_accuracy)
+                print("The highest eliminated set is", highest_eliminated_set)
+                highest_eliminated_set = copy.copy(intermedia_set)
+            intermedia_set = copy.copy(current_set_of_feature)
+        best_so_far_accuracy = 0
+        print("--------The highest eliminated set is", highest_eliminated_set)
+        current_set_of_feature = copy.copy(highest_eliminated_set)
+    # data = leave_one_out_cross_validation(data, current_set_of_feature)
+    # print("The current set", current_set_of_feature)
+    # current_set_of_feature.remove(9)
+    # print("The current set is", current_set_of_feature)
+
     return 0
 
 def Faster_search_ideal():
@@ -105,7 +132,8 @@ def Faster_search_ideal():
 def main():
 
     data = np.genfromtxt('small.txt', delimiter='')
-    feature_search(data)
+    # feature_search(data)
+    Backward_search(data)
 
 if __name__ == "__main__":
     main()
