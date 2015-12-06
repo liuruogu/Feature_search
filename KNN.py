@@ -21,22 +21,15 @@ def leave_one_out_cross_validation(data, current_set_of_feature):
         for j in range(value_num):  # predict in training set
             if j != i:
                 for k in current_set_of_feature:
-                    # print(x,k,j,k)
-                    # print(data[x][k], data[j][k])
                     distance += pow((data[x][k] - data[j][k]), 2)  # calculate the euclidean distance
-                    # print("Distance: ", distance)
                 if distance < N_distance:
                     N_distance = distance
-                    N_neighbor = j  # 循环下标+1才是第N个最近邻
-                    # print("nearest neighbor", N_neighbor, N_distance)
-                    # print("Class of the N_neighbor", data[j][0], data[x][0])
+                    N_neighbor = j
                 distance = 0
         if data[N_neighbor][0] == data[x][0]:
             count += 1
-            # print("预测准确数", (count/value_num)*100,"%")
         N_distance = 1000
     return (count / value_num) * 100
-    # print("nearest neighbor", N_neighbor, N_distance)
 
 
 # Forward Selection
@@ -85,7 +78,7 @@ def feature_search(data):
                   "got beat up!!")
             highest_accuracy_feature = copy.copy(current_set_of_feature)
             print("!!!!I got the highest accuracy features as follow", highest_accuracy_feature)
-            print("-----Hight accurcy feature set is", highest_accuracy_feature)
+            print("-----Hightest accurcy so far feature set is", highest_accuracy_feature)
             highest_accuracy = best_so_far_accuracy
 
     print("Finished search! The best feature subset is", highest_accuracy_feature, "which has an accuracy of",
@@ -187,16 +180,18 @@ def Faster_search_algorithm(data):
 def main():
     '''Get the feature number of the date set'''
     # print("Welcome to Ruogu's Feature Selection Algorithm")
-    # file = input("Type the name of the file to test ")
-    data = np.genfromtxt('80.txt', delimiter='')
+    file = input("Type the name of the file to test ")
+    data = np.genfromtxt(file, delimiter='')
 
-    # print("1) Forward Selection 2)Backward Selection 3)Ruogu's Special algorithm")
-    # Algorithm_select = input("Type the number of the algorithm you want to run ")
-    #
-    # if Algorithm_select == '1':
-    feature_search(data)
-    # Backward_search(data)
-    # Faster_search_algorithm(data)
+    print("1) Forward Selection 2)Backward Selection 3)Ruogu's Special algorithm")
+    Algorithm_select = input("Type the number of the algorithm you want to run ")
+
+    if Algorithm_select == '1':
+        feature_search(data)
+    elif Algorithm_select == '2':
+        Backward_search(data)
+    elif Algorithm_select == '3':
+        Faster_search_algorithm(data)
 
 
 if __name__ == "__main__":
